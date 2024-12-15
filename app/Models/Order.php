@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+
+    public function orderLines(){
+        return $this->hasMany(OrderLines::class);
+    }
+
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
 }
