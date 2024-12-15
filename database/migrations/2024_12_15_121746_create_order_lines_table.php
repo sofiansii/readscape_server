@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
             $table->integer('book_id');
-            $table->integer('price');
+            $table->decimal('price');
             $table->integer('quantity');
+            $table->unsignedBigInteger('orderId');
+            $table->foreign('orderId')->references('id')->on('orders')->onDelete('cascade'); // Foreign key constraint
             $table->timestamps();
         });
     }

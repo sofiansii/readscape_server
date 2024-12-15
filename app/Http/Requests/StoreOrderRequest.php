@@ -11,7 +11,7 @@ class StoreOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'userId' => 'required|string', // Validate userId as a string and ensure it exists in the users table
+            'orderlines' => 'required|array|min:1',        // Must include at least one orderline
+            'orderlines.*.book_id' => 'required|integer', // Validate book_id
+            'orderlines.*.price' => 'required|numeric|min:0',            // Validate price as non-negative
+            'orderlines.*.quantity' => 'required|integer|min:1',         // Validate quantity as at least 1
         ];
     }
 }
